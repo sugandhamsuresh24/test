@@ -1,35 +1,62 @@
 pipeline {
+
     agent any
+
+    parameters {
+
+        string(
+            name: 'VERSION',
+            defaultValue: '1.0',
+            description: 'Application Version'
+        )
+
+        choice(
+            name: 'ENVIRONMENT',
+            choices: ['DEV', 'QA', 'UAT', 'PROD'],
+            description: 'Select Environment'
+        )
+
+        booleanParam(
+            name: 'DEPLOY',
+            defaultValue: false,
+            description: 'Deploy Application?'
+        )
+    }
 
     stages {
 
-        stage('Checkout Info') {
+        stage('Display Parameters') {
             steps {
-                sh 'pwd'
-                sh 'ls -la'
+
+                echo "Version      : ${params.VERSION}"
+                echo "Environment  : ${params.ENVIRONMENT}"
+                echo "Deploy       : ${params.DEPLOY}"
+
             }
         }
 
-        stage('Python Version') {
+        stage('Build') {
             steps {
-                sh 'python3 --version'
+                echo "Building Version ${params.VERSION}"
             }
         }
 
-        stage('Build Complete') {
-            steps {
-                echo 'Pipeline executed successfully!'
+        stage('Deploy') {
+
+            when {
+                expression {
+                    params.DEPLOY == true
+                }
             }
+
+            steps {
+
+                echo "Deploying to ${params.ENVIRONMENT}"
+
+            }
+
         }
+
     }
 
-    post {
-        success {
-            echo 'Pipeline completed successfully.'
-        }
-
-        failure {
-            echo 'Pipeline failed.'
-        }
-    }
 }
