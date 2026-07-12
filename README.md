@@ -1,10 +1,10 @@
-Welcome to Banking Application
-This is Version 2
-Welcome to Banking Application
+# Banking Application
 
-Login Module Started
+This project demonstrates a complete DevOps CI/CD pipeline using:
 
-version : 3
-Version : 4
-testing stash
-testing stash 1
+- Python Flask
+- Git
+- GitHub
+- Jenkins
+- Docker
+- Kubernetes
