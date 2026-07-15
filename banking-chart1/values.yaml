@@ -1,0 +1,13 @@
+replicaCount: 1
+
+image:
+  repository: banking-app
+  tag: "v1"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5000
+
+app:
+  containerPort: 5000
